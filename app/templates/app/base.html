@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+         <title>Portfolio</title>
+         <link rel="icon" href="{% static 'images/favicon.ico' %}">
+</head>
+<body>
+        {% include 'app/navbar.html' %}
+
+        {% block content %}
+        {% endblock content %}
+
+        <script src="{% static 'js/base.js' %}"></script>
+        <script src="script.js"></script>
+        <script src="{% static 'js/modal.js' %}"></script>
+
+
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxgXu66lI92SfLjrzamilKoJv83pQAPZW3pvSHp6XdTmZjuznvzk1w--682_JIDA3K5YA/exec'
+        const form = document.forms ['submit-to-google-sheet']
+        const msg = document.getElementById("msg")
+
+
+        form.addEventListener ('submit', e => {
+            e.preventDefault()
+            fetch (scriptURL, { method: 'POST', body: new FormData(form)})
+                .then (response => {
+                    msg.innerHTML = "Message Sent Successfully!"
+                    setTimeout(function (){
+                        msg.innerHTML = ""
+                    },5000)
+                    form.reset()
+                })
+                .catch((error) => console.error('Error!', error.message))
+        })
+    </script>
+
+
+        <script>
+            function openLink(url) {
+                window.open(url, '_blank');
+            }
+        </script>
+
+
+</body>
+</html>
